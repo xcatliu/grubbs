@@ -1,26 +1,17 @@
 var handleTable = require('./handleTable');
 var stdev = require('compute-stdev');
 var average = require('average');
+var g = require('./g');
 
 var form = document.getElementById('form');
-
-var g = {
-  50: 2.96,
-  49: 2.952,
-  48: 2.944,
-  47: 2.936,
-  46: 2.928,
-  45: 2.92,
-  44: 2.91,
-  43: 2.9
-};
 
 form.addEventListener('submit', function (e) {
   var origin;
   var originStdev;
   var originAverage;
   var origin_;
-  var exclude = [];
+  var excluded = [];
+  var excludedIndexes = [];
   var i;
   var result;
   var currentG;
@@ -28,7 +19,7 @@ form.addEventListener('submit', function (e) {
   e.preventDefault();
   origin = handleTable(document.getElementById('origin').value);
   if (origin.length === 0) return;
-  origin_ = origin.slice();
+  origin_ = origin.filter(function (num) { return !isNaN(num); });
   while (true) {
     canBreak = true;
     originStdev = stdev(origin_);
@@ -41,7 +32,7 @@ form.addEventListener('submit', function (e) {
       result = Math.abs((origin_[i] - originAverage) / originStdev);
       if (result > currentG) {
         canBreak = false;
-        exclude.push(origin_[i]);
+        excluded.push(origin_[i]);
         origin_.splice(i, 1);
         i--;
       }
@@ -49,9 +40,19 @@ form.addEventListener('submit', function (e) {
     if (canBreak) break;
   }
   console.log(originAverage);
-  console.log(exclude);
+  console.log(excluded);
   document.getElementById('average').innerHTML = originAverage;
-  document.getElementById('excluded').innerHTML = exclude.join(', ');
+  document.getElementById('excluded').innerHTML = excluded.join(', ');
+
+  excluded.forEach(function (item) {
+    origin.forEach(function (originItem, index) {
+      if (originItem === item) {
+        excludedIndexes.push(index + 1);
+      }
+    });
+  });
+  console.log(excludedIndexes);
+  document.getElementById('excludedIndexes').innerHTML = excludedIndexes.join(', ');
 
   // g = handleTable(document.getElementById('g').value);
   // if (g.length === 0) return;
