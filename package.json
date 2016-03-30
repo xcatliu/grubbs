@@ -1,7 +1,7 @@
 {
-  "name": "boilerplate-webpack",
-  "version": "1.1.0",
-  "description": "Use webpack to bundle js",
+  "name": "grubbs-site",
+  "version": "1.0.0",
+  "description": "Grubbs' test for outliers online",
   "main": "index.html",
   "scripts": {
     "start": "npm run build & npm run serve",
@@ -11,18 +11,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/xcatliu/boilerplate.git"
+    "url": "git+ssh://git@github.com/xcatliu/grubbs.git"
   },
   "keywords": [
-    "boilerplate",
-    "webpack"
+    "grubbs",
+    "grubbs-test",
+    "grubbs-site"
   ],
   "author": "xcatliu <xcatliu@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/xcatliu/boilerplate/issues"
+    "url": "https://github.com/xcatliu/grubbs/issues"
   },
-  "homepage": "https://github.com/xcatliu/boilerplate#readme",
+  "homepage": "https://github.com/xcatliu/grubbs#readme",
   "devDependencies": {
     "ecstatic": "^1.4.0",
     "eslint": "^2.4.0",
@@ -30,8 +31,5 @@
     "webpack": "^1.12.14"
   },
   "dependencies": {
-    "average": "0.0.1",
-    "compute-stdev": "^1.0.0",
-    "lodash": "^4.6.1"
   }
 }

@@ -5,3 +5,6 @@
 .submit {
   margin-top: 100px;
 }
+#resultTable {
+  overflow-x: auto;
+}

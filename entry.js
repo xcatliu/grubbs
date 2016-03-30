@@ -1,60 +1,63 @@
-var handleTable = require('./handleTable');
-var stdev = require('compute-stdev');
-var average = require('average');
-var g = require('./g');
+/* eslint vars-on-top:0, no-use-before-define:0, func-names:0 */
+var grubbs = require('../lib/index');
 
 var form = document.getElementById('form');
+var resultTable = document.getElementById('resultTable');
 
 form.addEventListener('submit', function (e) {
-  var origin;
-  var originStdev;
-  var originAverage;
-  var origin_;
-  var excluded = [];
-  var excludedIndexes = [];
-  var i;
-  var result;
-  var currentG;
-  var canBreak;
   e.preventDefault();
-  origin = handleTable(document.getElementById('origin').value);
-  if (origin.length === 0) return;
-  origin_ = origin.filter(function (num) { return !isNaN(num); });
-  while (true) {
-    canBreak = true;
-    originStdev = stdev(origin_);
-    originAverage = Math.round(average(origin_) * 100) / 100;
-    currentG = g[origin_.length];
-    // console.log(origin_);
-    console.log(originStdev);
-    console.log(originAverage);
-    for (i = 0; i < origin_.length; i++) {
-      result = Math.abs((origin_[i] - originAverage) / originStdev);
-      if (result > currentG) {
-        canBreak = false;
-        excluded.push(origin_[i]);
-        origin_.splice(i, 1);
-        i--;
+  var dataSet = handleInput(document.getElementById('dataSet').value);
+  var result = grubbs.test(dataSet);
+  var tableData = [];
+  result.forEach(function (round) {
+    round.dataSet.forEach(function (data, dataIndex) {
+      if (typeof tableData[dataIndex] === 'undefined') {
+        tableData[dataIndex] = { children: [], th: dataIndex + 1 };
       }
-    }
-    if (canBreak) break;
-  }
-  console.log(originAverage);
-  console.log(excluded);
-  document.getElementById('average').innerHTML = originAverage;
-  document.getElementById('excluded').innerHTML = excluded.join(', ');
-
-  excluded.forEach(function (item) {
-    origin.forEach(function (originItem, index) {
-      if (originItem === item) {
-        excludedIndexes.push(index + 1);
+      if (!round.gPass[dataIndex]) {
+        tableData[dataIndex].className = 'bg-danger';
       }
+      tableData[dataIndex].children.push(
+        { text: data },
+        { text: round.gSet[dataIndex] }
+      );
     });
+    if (typeof tableData[round.dataSet.length] === 'undefined') {
+      tableData[round.dataSet.length] = { children: [], th: '-' };
+      tableData[round.dataSet.length + 1] = { children: [], th: 'Average' };
+      tableData[round.dataSet.length + 2] = { children: [], th: 'Stdev' };
+      tableData[round.dataSet.length + 3] = { children: [], th: 'CriticalValue' };
+    }
+    tableData[round.dataSet.length].children.push({ text: '' }, { text: '' });
+    tableData[round.dataSet.length + 1].children.push({ text: round.average, colspan: 2 });
+    tableData[round.dataSet.length + 2].children.push({ text: round.stdev, colspan: 2 });
+    tableData[round.dataSet.length + 3].children.push({ text: round.criticalValue, colspan: 2 });
   });
-  console.log(excludedIndexes);
-  document.getElementById('excludedIndexes').innerHTML = excludedIndexes.join(', ');
-
-  // g = handleTable(document.getElementById('g').value);
-  // if (g.length === 0) return;
-  // if (g[0].length !== 2) return;
+  var tableHTML =
+    '<table class="table table-striped table-bordered table-hover table-condensed"><tbody>' +
+    tableData.map(function (row) {
+      return '<tr class=' + row.className + '><th>' + row.th + '</th>' +
+        row.children.map(function (item) {
+          return (
+            '<td' +
+            (typeof item.colspan === 'undefined' ? '' : ' colspan="' + item.colspan + '"') + '>' +
+            (typeof item.text === 'undefined' ? '' : item.text) +
+            '</td>');
+        }).join('') +
+      '</tr>';
+    }).join('') +
+    '</tbody></table>';
+  resultTable.innerHTML = tableHTML;
 });
+
+function handleInput(originInput) {
+  var input;
+  if (typeof originInput !== 'string') throw new Error('input MUST be a string');
+  input = originInput.trim();
+  if (input.length === 0) throw new Error('input MUST NOT empty');
+  return input.split('\n').map(function (originRow) {
+    var row = originRow.trim();
+    if (row === '') return undefined;
+    return Number(row);
+  });
+}

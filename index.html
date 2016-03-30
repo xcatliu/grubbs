@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Basic</title>
+    <title>Online Grubbs' Test for Olutliers</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -19,11 +19,12 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
+    <a href="https://github.com/xcatliu/grubbs"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
     <div class="container">
       <div class="navbar-header">
         <ul class="nav navbar-nav">
           <li class="active">
-            <a href="/">Step 1</a>
+            <a href="/grubbs">Online Grubbs' Test for Olutliers</a>
           </li>
         </ul>
       </div>
@@ -32,27 +33,21 @@
       <div class="container">
         <div class="row">
           <form id="form">
-            <div class="col-md-3">
+            <div class="col-md-8">
               <div class="form-group">
-                <label for="origin">Put your origin data here</label>
-                <textarea id="origin" class="form-control" rows="10"></textarea>
+                <label for="dataSet">Put your dataSet here, one value per row, up to 100 rows</label>
+                <textarea id="dataSet" class="form-control" rows="10"></textarea>
               </div>
             </div>
-            <div class="col-md-3">
-              <div class="form-group">
-                <label for="g">Put your g table here</label>
-                <textarea id="g" class="form-control" rows="10"></textarea>
-              </div>
-            </div>
-            <div class="col-md-1">
+            <div class="col-md-4">
               <input class="btn btn-primary btn-block submit" type="submit" value="Go"/>
             </div>
           </form>
-          <div class="col-md-5">
-            <h3>Result</h3>
-            <p>Final Average: <span id="average"></span></p>
-            <p>Excluded: <span id="excluded"></span></p>
-            <p>Excluded Indexes: <span id="excludedIndexes"></span></p>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div id="resultTable">
+            </div>
           </div>
         </div>
       </div>
