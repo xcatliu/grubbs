@@ -31,5 +31,6 @@
     "webpack": "^1.12.14"
   },
   "dependencies": {
+    "handlebars": "^4.0.5"
   }
 }

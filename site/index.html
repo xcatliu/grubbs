@@ -20,30 +20,51 @@
 
     <!-- Add your site or application content here -->
     <a href="https://github.com/xcatliu/grubbs"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
-    <div class="container">
-      <div class="navbar-header">
-        <ul class="nav navbar-nav">
-          <li class="active">
-            <a href="/grubbs">Online Grubbs' Test for Olutliers</a>
-          </li>
-        </ul>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="navbar-header">
+          <ul class="nav navbar-nav">
+            <li>
+              <a href="/grubbs"><h1 class="grubbsHeader">Online Grubbs' Test for Olutliers</h1></a>
+            </li>
+            <li>
+              <a href="https://github.com/xcatliu/grubbs/issues/new" target="_blank">Report an issue</a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
-    <div class="content">
-      <div class="container">
+    <div class="grubbsContent">
+      <div class="container-fluid">
         <div class="row">
           <form id="form">
-            <div class="col-md-8">
+            <div class="col-md-4">
+              <div>
+                <blockquote class="grubbsBlockquote">
+                  Grubbs' test (named after Frank E. Grubbs, who published the test in 1950),
+                  also known as the maximum normed residual test or extreme studentized deviate test,
+                  is a statistical test used to detect outliers in a univariate data set
+                  assumed to come from a normally distributed population.
+                </blockquote>
+                <p>More about Grubbs' Test for Olutliers: <a href="https://en.wikipedia.org/wiki/Grubbs%27_test_for_outliers">Wikipedia</a></p>
+                <p>Project home: <a href="https://github.com/xcatliu/grubbs">GitHub xcatliu/grubbs</a></p>
+                <p>Author: <a href="https://github.com/xcatliu">xcatliu</a></p>
+              </div>
+            </div>
+            <div class="col-md-5">
               <div class="form-group">
                 <label for="dataSet">Put your dataSet here, one value per row, up to 100 rows</label>
                 <textarea id="dataSet" class="form-control" rows="10"></textarea>
               </div>
             </div>
-            <div class="col-md-4">
-              <input class="btn btn-primary btn-block submit" type="submit" value="Go"/>
+            <div class="col-md-3 grubbsButtons">
+              <input class="btn btn-default btn-block" id="grubbsExampleButton" type="button" value="Fill with example dataSet"/>
+              <br/>
+              <input class="btn btn-lg btn-primary btn-block" type="submit" value="Go"/>
             </div>
           </form>
         </div>
+        <hr/>
         <div class="row">
           <div class="col-md-12">
             <div id="resultTable">
@@ -52,7 +73,44 @@
         </div>
       </div>
     </div>
-
+    <script id="resultTableTemplate" type="text/x-handlebars-template">
+      <table class="table table-striped table-bordered table-hover table-condensed">
+        <tbody>
+          {{#each tableData}}
+          <tr class="{{className}}">
+            <th>{{@index}}</th>
+            {{#each tds}}
+            <td>{{this}}</td>
+            {{/each}}
+          </tr>
+          {{/each}}
+          <tr>
+            <th>-</th>
+            {{#each emptyTdList}}
+            <td colspan="2">{{this}}</td>
+            {{/each}}
+          </tr>
+          <tr>
+            <th>Average</th>
+            {{#each averageList}}
+            <td colspan="2">{{this}}</td>
+            {{/each}}
+          </tr>
+          <tr>
+            <th>Stdev</th>
+            {{#each stdevList}}
+            <td colspan="2">{{this}}</td>
+            {{/each}}
+          </tr>
+          <tr>
+            <th>Critical Value</th>
+            {{#each criticalValueList}}
+            <td colspan="2">{{this}}</td>
+            {{/each}}
+          </tr>
+        </tbody>
+      </table>
+    </script>
     <script src="bundle.js"></script>
 
     <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->

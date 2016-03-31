@@ -1,10 +1,23 @@
-.content {
-  background: #f6f6f6;
+.grubbsContent {
+  background-color: #fafafa;
   padding: 20px 0;
 }
-.submit {
-  margin-top: 100px;
+.grubbsButtons {
+  padding-top: 60px;
+}
+.grubbsHeader {
+  font-size: 14px;
+  font-weight: normal;
+  margin: 0;
+  display: inline;
+}
+.grubbsBlockquote {
+  font-size: 14px;
+  color: #666;
 }
 #resultTable {
   overflow-x: auto;
+}
+.bg-danger {
+  background-color: #f2dede !important;
 }

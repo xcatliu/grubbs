@@ -1,53 +1,48 @@
 /* eslint vars-on-top:0, no-use-before-define:0, func-names:0 */
+var Handlebars = require('handlebars/dist/handlebars');
 var grubbs = require('../lib/index');
+var realWorldTestCases = require('../test/fixtures/realWorldTestCases');
 
 var form = document.getElementById('form');
 var resultTable = document.getElementById('resultTable');
+var grubbsExampleButton = document.getElementById('grubbsExampleButton');
+var dataSetTextarea = document.getElementById('dataSet');
+
+var resultTableTemplate =
+  Handlebars.compile(document.getElementById('resultTableTemplate').innerHTML);
+
+grubbsExampleButton.addEventListener('click', function (e) {
+  e.preventDefault();
+  dataSetTextarea.value = realWorldTestCases[0].input.join('\n');
+});
 
 form.addEventListener('submit', function (e) {
   e.preventDefault();
-  var dataSet = handleInput(document.getElementById('dataSet').value);
+  var dataSet = handleInput(dataSetTextarea.value);
   var result = grubbs.test(dataSet);
-  var tableData = [];
+  var resultTableData = {
+    emptyTdList: [],
+    tableData: [],
+    averageList: [],
+    stdevList: [],
+    criticalValueList: []
+  };
   result.forEach(function (round) {
     round.dataSet.forEach(function (data, dataIndex) {
-      if (typeof tableData[dataIndex] === 'undefined') {
-        tableData[dataIndex] = { children: [], th: dataIndex + 1 };
+      if (typeof resultTableData.tableData[dataIndex] === 'undefined') {
+        resultTableData.tableData[dataIndex] = { tds: [] };
       }
-      if (!round.gPass[dataIndex]) {
-        tableData[dataIndex].className = 'bg-danger';
+      if (round.gPass[dataIndex] === false) {
+        resultTableData.tableData[dataIndex].className = 'bg-danger';
       }
-      tableData[dataIndex].children.push(
-        { text: data },
-        { text: round.gSet[dataIndex] }
-      );
+      resultTableData.tableData[dataIndex].tds.push(data, round.gSet[dataIndex]);
     });
-    if (typeof tableData[round.dataSet.length] === 'undefined') {
-      tableData[round.dataSet.length] = { children: [], th: '-' };
-      tableData[round.dataSet.length + 1] = { children: [], th: 'Average' };
-      tableData[round.dataSet.length + 2] = { children: [], th: 'Stdev' };
-      tableData[round.dataSet.length + 3] = { children: [], th: 'CriticalValue' };
-    }
-    tableData[round.dataSet.length].children.push({ text: '' }, { text: '' });
-    tableData[round.dataSet.length + 1].children.push({ text: round.average, colspan: 2 });
-    tableData[round.dataSet.length + 2].children.push({ text: round.stdev, colspan: 2 });
-    tableData[round.dataSet.length + 3].children.push({ text: round.criticalValue, colspan: 2 });
+    resultTableData.emptyTdList.push('');
+    resultTableData.averageList.push(round.average);
+    resultTableData.stdevList.push(round.stdev);
+    resultTableData.criticalValueList.push(round.criticalValue);
   });
-  var tableHTML =
-    '<table class="table table-striped table-bordered table-hover table-condensed"><tbody>' +
-    tableData.map(function (row) {
-      return '<tr class=' + row.className + '><th>' + row.th + '</th>' +
-        row.children.map(function (item) {
-          return (
-            '<td' +
-            (typeof item.colspan === 'undefined' ? '' : ' colspan="' + item.colspan + '"') + '>' +
-            (typeof item.text === 'undefined' ? '' : item.text) +
-            '</td>');
-        }).join('') +
-      '</tr>';
-    }).join('') +
-    '</tbody></table>';
-  resultTable.innerHTML = tableHTML;
+  resultTable.innerHTML = resultTableTemplate(resultTableData);
 });
 
 function handleInput(originInput) {
