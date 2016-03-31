@@ -10,6 +10,7 @@ git checkout master site
 
 # http://askubuntu.com/questions/269775/mv-directory-not-empty
 rsync -a site/ ./
+rm -rf site
 
 git add :
 git commit -m 'Update gh-pages'

@@ -55,6 +55,12 @@ npm install
 npm start
 ```
 
+### Deploy gh-pages
+
+```shell
+npm run deploy:gh-pages
+```
+
 ## Competing Products
 
 - [GraphPad Software Grubbs1](http://graphpad.com/quickcalcs/Grubbs1.cfm)
