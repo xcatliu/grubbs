@@ -27,20 +27,20 @@ form.addEventListener('submit', function (e) {
     stdevList: [],
     criticalValueList: []
   };
-  result.forEach(function (round) {
-    round.dataSet.forEach(function (data, dataIndex) {
+  result.forEach(function (currentRound) {
+    currentRound.dataSet.forEach(function (data, dataIndex) {
       if (typeof resultTableData.tableData[dataIndex] === 'undefined') {
         resultTableData.tableData[dataIndex] = { tds: [] };
       }
-      if (round.gPass[dataIndex] === false) {
+      if (currentRound.gPass[dataIndex] === false) {
         resultTableData.tableData[dataIndex].className = 'bg-danger';
       }
-      resultTableData.tableData[dataIndex].tds.push(data, round.gSet[dataIndex]);
+      resultTableData.tableData[dataIndex].tds.push(data, round(currentRound.gSet[dataIndex]));
     });
     resultTableData.emptyTdList.push('');
-    resultTableData.averageList.push(round.average);
-    resultTableData.stdevList.push(round.stdev);
-    resultTableData.criticalValueList.push(round.criticalValue);
+    resultTableData.averageList.push(round(currentRound.average));
+    resultTableData.stdevList.push(round(currentRound.stdev));
+    resultTableData.criticalValueList.push(currentRound.criticalValue);
   });
   resultTable.innerHTML = resultTableTemplate(resultTableData);
 });
@@ -55,4 +55,11 @@ function handleInput(originInput) {
     if (row === '') return undefined;
     return Number(row);
   });
+}
+
+function round(num) {
+  if (typeof num === 'undefined') return '';
+  if (num === null) return '';
+  if (isNaN(num)) return '';
+  return Math.round(num * 10000) / 10000;
 }
