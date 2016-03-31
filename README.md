@@ -65,4 +65,4 @@ npm start
 - [Grubbs' critical value table](http://www.sediment.uni-goettingen.de/staff/dunkl/software/pep-grubbs.pdf)
 - [格鲁布斯检验 - 化学化工专业知识百科网](http://111.207.167.154/hdwiki/index.php?doc-view-134909)
 
-[Grubbs' test for outliers]: (https://en.wikipedia.org/wiki/Grubbs%27_test_for_outliers)
+[Grubbs' test for outliers]: https://en.wikipedia.org/wiki/Grubbs%27_test_for_outliers
