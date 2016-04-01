@@ -11,6 +11,10 @@ var dataSetTextarea = document.getElementById('dataSet');
 var resultTableTemplate =
   Handlebars.compile(document.getElementById('resultTableTemplate').innerHTML);
 
+Handlebars.registerHelper('inc', function(value, options) {
+  return parseInt(value, 10) + 1;
+});
+
 grubbsExampleButton.addEventListener('click', function (e) {
   e.preventDefault();
   dataSetTextarea.value = realWorldTestCases[0].input.join('\n');
@@ -35,11 +39,17 @@ form.addEventListener('submit', function (e) {
       if (currentRound.gPass[dataIndex] === false) {
         resultTableData.tableData[dataIndex].className = 'bg-danger';
       }
-      resultTableData.tableData[dataIndex].tds.push(data, round(currentRound.gSet[dataIndex]));
+      resultTableData.tableData[dataIndex].tds.push({
+        innerHTML: data,
+        title: currentRound.gSet[dataIndex]
+      });
     });
     resultTableData.emptyTdList.push('');
-    resultTableData.averageList.push(round(currentRound.average));
-    resultTableData.stdevList.push(round(currentRound.stdev));
+    resultTableData.averageList.push(currentRound.average);
+    resultTableData.stdevList.push({
+      innerHTML: round(currentRound.stdev),
+      title: currentRound.stdev
+    });
     resultTableData.criticalValueList.push(currentRound.criticalValue);
   });
   resultTable.innerHTML = resultTableTemplate(resultTableData);
