@@ -4773,6 +4773,8 @@
 	  if (typeof criticalValue === 'undefined') {
 	    throw new Error('alpha ' + options.alpha + ' is not support');
 	  }
+	  var digit = getDigit(originDataSet);
+	  var powDigit = Math.pow(10, digit);
 
 	  // Main algorithm
 	  var result = [];
@@ -4788,7 +4790,7 @@
 	    currentRound.dataSet = dataSet.slice();
 	    currentRound.stdev = stdev(currentRound.dataSet.filter(isValidData));
 	    currentRound.average =
-	      Math.round(average(currentRound.dataSet.filter(isValidData)) * 100) / 100;
+	      Math.round(average(currentRound.dataSet.filter(isValidData)) * powDigit) / powDigit;
 	    currentRound.criticalValue = criticalValue[currentRound.dataSet.filter(isValidData).length];
 	    currentRound.gSet = [];
 	    // true if pass, false if unpass, undefined if no data
@@ -4827,6 +4829,24 @@
 	    !isNaN(data) &&
 	    data !== null
 	  );
+	}
+
+	function getDigit(dataSet) {
+	  if (!dataSet) return 0;
+	  var filteredDataSet = dataSet.filter(isValidData);
+	  var filteredDataSetLength = filteredDataSet.length;
+	  if (filteredDataSetLength === 0) return 0;
+	  var digit = 0;
+	  filteredDataSet.forEach(function (data) {
+	    var dataString = data.toString();
+	    var dotIndex = dataString.indexOf('.');
+	    if (dotIndex === -1) return;
+	    var currentDigit = dataString.length - dotIndex - 1;
+	    if (currentDigit > digit) {
+	      digit = currentDigit;
+	    }
+	  });
+	  return digit;
 	}
 
 	module.exports = {
