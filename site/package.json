@@ -1,0 +1,36 @@
+{
+  "name": "grubbs-site",
+  "version": "1.0.0",
+  "description": "Grubbs' test for outliers online",
+  "main": "index.html",
+  "scripts": {
+    "start": "npm run build & npm run serve",
+    "build": "webpack ./entry.js bundle.js -w",
+    "serve": "ecstatic .",
+    "test": "eslint . && echo 'ESLint Passed!\\n\\n'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/xcatliu/grubbs.git"
+  },
+  "keywords": [
+    "grubbs",
+    "grubbs-test",
+    "grubbs-site"
+  ],
+  "author": "xcatliu <xcatliu@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/xcatliu/grubbs/issues"
+  },
+  "homepage": "https://github.com/xcatliu/grubbs#readme",
+  "devDependencies": {
+    "ecstatic": "^1.4.0",
+    "eslint": "^2.4.0",
+    "eslint-config-airbnb": "^6.2.0",
+    "webpack": "^1.12.14"
+  },
+  "dependencies": {
+    "handlebars": "^4.0.5"
+  }
+}
