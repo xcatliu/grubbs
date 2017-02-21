@@ -2,7 +2,7 @@
   "name": "grubbs",
   "version": "1.3.0",
   "description": "Grubbs' test for outliers",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "start": "npm test",
     "deploy:gh-pages": "./bin/deploy-gh-pages.sh",

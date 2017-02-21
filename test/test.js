@@ -1,6 +1,6 @@
 /* eslint func-names:0 */
 
-var grubbs = require('../lib/index');
+var grubbs = require('..');
 var realWorldTestCases = require('./fixtures/realWorldTestCases');
 var assert = require('assert');
 

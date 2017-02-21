@@ -1,6 +1,6 @@
 {
   "extends": "airbnb/legacy",
   "env": {
-    "mocha": true,
+    "mocha": true
   }
 }
