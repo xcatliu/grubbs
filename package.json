@@ -24,12 +24,12 @@
   },
   "homepage": "https://github.com/xcatliu/grubbs#readme",
   "devDependencies": {
-    "eslint": "^2.4.0",
-    "eslint-config-airbnb": "^6.2.0",
-    "mocha": "^2.4.5"
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "mocha": "^6.1.4"
   },
   "dependencies": {
-    "average": "0.0.1",
+    "average": "0.1.0",
     "compute-stdev": "^1.0.0"
   }
 }
