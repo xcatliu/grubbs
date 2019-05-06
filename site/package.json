@@ -25,10 +25,10 @@
   },
   "homepage": "https://github.com/xcatliu/grubbs#readme",
   "devDependencies": {
-    "ecstatic": "^1.4.0",
-    "eslint": "^2.4.0",
-    "eslint-config-airbnb": "^6.2.0",
-    "webpack": "^1.12.14"
+    "ecstatic": "^4.1.2",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "webpack": "^4.30.0"
   },
   "dependencies": {
     "handlebars": "^4.0.5"
