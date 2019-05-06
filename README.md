@@ -1,5 +1,7 @@
 # Grubbs' test for outliers
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/xcatliu/grubbs.svg)](https://greenkeeper.io/)
+
 Online Grubbs' test for outliers: http://xcatliu.github.io/grubbs/
 
 ## What is Grubbs' test
