@@ -1,6 +1,6 @@
 {
   "name": "grubbs",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "description": "Grubbs' test for outliers",
   "main": "lib/index.js",
   "types": "./index.d.ts",
