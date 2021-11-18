@@ -1,6 +1,6 @@
 export as namespace grubbs;
 
-export type Data = number|undefined;
+export type Data = number | undefined;
 
 export interface Options {
   alpha: number;
@@ -8,12 +8,12 @@ export interface Options {
 }
 
 export interface Round {
-  dataset: Data[];
+  dataSet: Data[];
   stdev: number;
   average: number;
   criticalValue: number;
   gSet: Data[];
-  gPass: Data[];
+  gPass: (boolean | undefined)[];
   outliers: number[];
   outlierIndexes: number[];
 }
