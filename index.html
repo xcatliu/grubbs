@@ -60,6 +60,13 @@
               </div>
             </div>
             <div class="col-md-3 grubbsButtons">
+              <label class="radio-inline">
+                <input type="radio" name="base" id="grubbsUseAverage" checked>Use Average
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="base" id="grubbsUseMedian">Use Median
+              </label>
+              <br/>
               <input class="btn btn-default btn-block" id="grubbsExampleButton" type="button" value="Fill with example dataSet"/>
               <br/>
               <input class="btn btn-lg btn-primary btn-block" type="submit" value="Go"/>
@@ -95,6 +102,12 @@
           <tr>
             <th>Average</th>
             {{#each averageList}}
+            <td>{{this}}</td>
+            {{/each}}
+          </tr>
+          <tr>
+            <th>Median</th>
+            {{#each medianList}}
             <td>{{this}}</td>
             {{/each}}
           </tr>
