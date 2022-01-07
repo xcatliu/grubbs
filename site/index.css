@@ -3,7 +3,10 @@
   padding: 20px 0;
 }
 .grubbsButtons {
-  padding-top: 60px;
+  padding-top: 20px;
+}
+.grubbsButtons .radio-inline {
+  margin: 20px 20px 20px 0;
 }
 .grubbsHeader {
   font-size: 14px;

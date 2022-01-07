@@ -5,6 +5,7 @@ var realWorldTestCases = require('../test/fixtures/realWorldTestCases');
 
 var form = document.getElementById('form');
 var resultTable = document.getElementById('resultTable');
+var grubbsUseMedian = document.getElementById('grubbsUseMedian');
 var grubbsExampleButton = document.getElementById('grubbsExampleButton');
 var dataSetTextarea = document.getElementById('dataSet');
 
@@ -23,11 +24,14 @@ grubbsExampleButton.addEventListener('click', function (e) {
 form.addEventListener('submit', function (e) {
   e.preventDefault();
   var dataSet = handleInput(dataSetTextarea.value);
-  var result = grubbs.test(dataSet);
+  var result = grubbs.test(dataSet, {
+    useMedian: grubbsUseMedian.checked
+  });
   var resultTableData = {
     emptyTdList: [],
     tableData: [],
     averageList: [],
+    medianList: [],
     stdevList: [],
     criticalValueList: []
   };
@@ -46,6 +50,7 @@ form.addEventListener('submit', function (e) {
     });
     resultTableData.emptyTdList.push('');
     resultTableData.averageList.push(currentRound.average);
+    resultTableData.medianList.push(currentRound.median);
     resultTableData.stdevList.push({
       innerHTML: round(currentRound.stdev),
       title: currentRound.stdev
