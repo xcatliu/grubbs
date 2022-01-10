@@ -3,8 +3,8 @@ export as namespace grubbs;
 export type Data = number | undefined;
 
 export interface Options {
-  alpha: number;
-  recursion: boolean;
+  alpha?: number;
+  recursion?: boolean;
   useMedian?: boolean;
 }
 
