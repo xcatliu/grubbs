@@ -5,6 +5,7 @@ export type Data = number | undefined;
 export interface Options {
   alpha: number;
   recursion: boolean;
+  useMedian?: boolean;
 }
 
 export interface Round {
